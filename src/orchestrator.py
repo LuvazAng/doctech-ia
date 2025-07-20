@@ -1,10 +1,4 @@
-"""
-Class Orchestrator
-
-This module defines the Orchestrator class, which is responsible for coordinating
-the retrieval and processing of repositories using the RepoManager class.
-"""
-
+import time
 from requests.exceptions import RequestException
 from src.core.repo_manager import RepoManager
 from src.core.repo_analyzer import RepoAnalyzer
@@ -29,7 +23,7 @@ class Orchestrator:
         Coordinates the full pipeline:
         - Clones the repository
         - Analyzes its structure
-        - Processes the code for embedding (coming soon) <{:{D
+        - Processes the code for embedding
 
         Args:
             url_repo (str): URL of the GitHub repository.
@@ -46,14 +40,23 @@ class Orchestrator:
                 "Repository name: %s, Origin: %s", repo_name, cloned_repo_path
             )
 
-            # Analyze the repo and export its structure
+            start_time = time.time()
+
             output_json_path = self.repo_analyzer.analyze_and_export(
                 cloned_repo_path, repo_name
             )
             self.logger.info("Structure exported to: %s", output_json_path)
 
-            self.repo_code_splitter.process_files(cloned_repo_path, output_json_path)
-            self.logger.info("The processing of embeddings has concluded.")
+            self.repo_code_splitter.process_files(
+                repo_name, cloned_repo_path, output_json_path
+            )
+
+            end_time = time.time()
+            elapsed_time = end_time - start_time
+            self.logger.info(
+                "The processing of embeddings has concluded. Elapsed time: %.2f seconds",
+                elapsed_time,
+            )
 
         except ValueError as ve:
             self.logger.error("Invalid URL or malformed parameter: %s", ve)

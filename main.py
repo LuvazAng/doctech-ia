@@ -2,7 +2,6 @@
 
 from src.orchestrator import Orchestrator
 from src.utils.loggers import FileLoggerConfigurator
-from conf.config import GITHUB_TOKEN  # GITHUB_TOKEN no se usa directamente aquí
 
 
 def main():
@@ -15,17 +14,9 @@ def main():
 
     try:
         orchestrator_flow = Orchestrator(logger)
-        orchestrator_flow.proccessing_repo(
-            "https://github.com/LuvazAng/chatbot-llm.git", GITHUB_TOKEN
-        )
+        orchestrator_flow.proccessing_repo("SET_SOME_URL_REPO")
     except IOError as e:
         logger.exception("An error occurred while running the application. %s", e)
-    except (
-        Exception
-    ) as e:  # Captura cualquier otra excepción no manejada específicamente
-        logger.exception(
-            "An unexpected error occurred during the main execution: %s", e
-        )
 
 
 if __name__ == "__main__":

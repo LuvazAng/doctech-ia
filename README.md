@@ -1,9 +1,37 @@
-# Acerca del proyecto
----
-**DocTech IA** es un proyecto _open-source_ enfocado en la generación automática de documentación técnica a partir del análisis de código fuente. Su funcionamiento se inspira en herramientas como _Deep Wiki_, y está diseñado para analizar un repositorio clonado desde su directorio raíz, recorriendo de manera recursiva todos sus archivos y subdirectorios.
+# About the project
+**DocTech IA** is an _open-source_ project focused on the automatic generation of technical documentation through source code analysis. Its operation is inspired by tools such as _Deep Wiki_ and is designed to analyze a cloned repository from its root directory, recursively traversing all its files and subdirectories.
 
-El código del proyecto se fragmenta y transforma en _embeddings_, los cuales son utilizados por un modelo de lenguaje (LLM) para comprender el contenido del repositorio. Con esta información, el modelo genera documentación técnica precisa y coherente, alineada fielmente con la lógica y estructura del código.
+The project code is fragmented and transformed into _embeddings_, which are used by a language model (LLM) to understand the repository's content. With this information, the model generates accurate and coherent technical documentation, closely aligned with the logic and structure of the code.
 
-DocTech IA será compatible con modelos LLM ejecutados localmente, como los soportados por **Ollama** o **LM Studio**, así como con modelos accesibles mediante API, como **ChatGPT de OpenAI** o **Gemini de Google**.
+DocTech IA will be compatible with locally executed LLM models, such as those supported by Ollama or LM Studio, as well as with models accessible via APIs, such as **OpenAI's ChatGPT** or **Google's Gemini**.
 
-El proyecto está desarrollado en **Python 3.10 o superior**.
+The project is developed in **Python 3.10 or higher**.
+
+You need to create a `.env` file 
+
+```env
+LLM_PROVIDER="ollama"  
+EMBEDDING_PROVIDER="ollama"  
+
+# DEFAULT: Add this if you want to use Ollama models
+OLLAMA_BASE_URL="http://localhost:11434" 
+GOOGLE_API_KEY="YOUR_GOOGLE_API_KEY" 
+OPENAI_API_KEY="YOUR_OPENAI_API_KEY"
+
+OLLAMA_MODEL="qwen2.5-coder:3b"
+OPENAI_MODEL="YOUR_SELECTED_MODEL"  
+GOOGLE_MODEL="YOUR_SELECTED_MODEL"
+
+OLLAMA_EMBEDDING_MODEL="nomic-embed-text"  
+OPENAI_EMBEDDING_MODEL="text-embedding-3-small"
+DIMENSION_EMBEDDING_DIMENSION=768
+
+POSGRESQL_DB_NAME="YOUR_DATABASE_NAME_POSGRESQL"
+POSGRESQL_DB_USER="YOUR_USER_POSGRESQL"
+POSGRESQL_DB_PSW="YOUR_PASSWORD_POSGRESQL"
+POSGRESQL_DB_HOST="localhost"
+POSGRESQL_DB_PORT="5432"
+
+# ENVIOREMNT CLONING
+GITHUB_TOKEN="YOUR_TOKEN_GITHUB"
+```

@@ -12,7 +12,7 @@ class OpenAIEmbeddingService(BaseEmbeddingService):
         """
         Generate the embedding vector using the OpenAI model.
         """
-        self.logger.info("Usando OpenAI para generar embeddings")
+        self.logger.info("Using OpenAi to Generate Embeddings")
         return [0.2] * 768
 
     def get_model_info(self) -> Dict[str, str]:
