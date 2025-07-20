@@ -8,6 +8,7 @@ the retrieval and processing of repositories using the RepoManager class.
 from requests.exceptions import RequestException
 from src.core.repo_manager import RepoManager
 from src.core.repo_analyzer import RepoAnalyzer
+from src.core.repo_code_splitter import RepoCodeSplitter
 
 
 class Orchestrator:
@@ -21,6 +22,7 @@ class Orchestrator:
         self.logger = logger
         self.repo_manager = RepoManager(logger)
         self.repo_analyzer = RepoAnalyzer(logger)
+        self.repo_code_splitter = RepoCodeSplitter(logger)
 
     def proccessing_repo(self, url_repo: str, token: str = None, username: str = None):
         """
@@ -49,6 +51,9 @@ class Orchestrator:
                 cloned_repo_path, repo_name
             )
             self.logger.info("Structure exported to: %s", output_json_path)
+
+            self.repo_code_splitter.process_files(cloned_repo_path, output_json_path)
+            self.logger.info("The processing of embeddings has concluded.")
 
         except ValueError as ve:
             self.logger.error("Invalid URL or malformed parameter: %s", ve)

@@ -6,8 +6,23 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-LLM_PROVIDER = os.getenv("LLM_PROVIDER", "ollama")
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+LLM_PROVIDER = os.getenv("LLM_PROVIDER", "ollama")
+EMBEDDING_PROVIDER = os.getenv("EMBEDDING_PROVIDER", "ollama")
+
+
+OLLAMA_HOST = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
+# MODELS CONFIGURATION
+OLLAMA_MODEL = os.getenv("OLLAMA_MODEL")
+OPENAI_MODEL = os.getenv("OPENAI_MODEL")
+GOOGLE_MODEL = os.getenv("GOOGLE_MODEL")
+
+# EMBEDDING CONFIGURATION
+OLLAMA_EMBEDDING_MODEL = os.getenv("OLLAMA_EMBEDDING_MODEL", "nomic-embed-text")
+OPENAI_EMBEDDING_MODEL = os.getenv("OPENAI_EMBEDDING_MODEL", "text-embedding-3-small")
 
 # CONFIGURACIÓN DE POSGRESQL
 POSGRESQL_DB_NAME = os.getenv("POSGRESQL_DB_NAME")
@@ -16,21 +31,6 @@ POSGRESQL_DB_PSW = os.getenv("POSGRESQL_DB_PSW")
 POSGRESQL_DB_HOST = os.getenv("POSGRESQL_DB_HOST")
 POSGRESQL_DB_PORT = os.getenv("POSGRESQL_DB_PORT")
 
-# MODELS CONFIGURATION
-OLLAMA_HOST = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
-OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "qwen2.5-coder:3b")
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-3.5-turbo")
-
-# EMBEDDING CONFIGURATION
-EMBEDDING_MODEL_PROVIDER = os.getenv(
-    "EMBEDDING_MODEL_PROVIDER", "ollama"
-)  # 'ollama', 'openai'
-OLLAMA_EMBEDDING_MODEL = os.getenv(
-    "OLLAMA_EMBEDDING_MODEL", "nomic-embed-text"
-)  # Ollama embedding model
-OPENAI_EMBEDDING_MODEL = os.getenv("OPENAI_EMBEDDING_MODEL", "text-embedding-3-small")
 
 # Chunking configuration
 CODE_CHUNK_SIZE = 2000
