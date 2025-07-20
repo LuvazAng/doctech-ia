@@ -89,8 +89,30 @@ class RepoManager:
 
         return path.strip("/").split("/")[-1]
 
+    def _is_valid_url(self, url: str) -> bool:
+        """Check if a given string is a valid HTTP(S) or SSH Git URL."""
+        if not url or not isinstance(url, str):
+            return False
+
+        parsed = urlparse(url)
+
+        # Valida URLs HTTP/HTTPS
+        if parsed.scheme in ["http", "https"] and parsed.netloc and parsed.path:
+            return True
+
+        # Valida URLs SSH estilo: git@github.com:user/repo.git
+        ssh_pattern = r"^(git@|ssh://git@)[\w.-]+[:/][\w./-]+(\.git)?$"
+        if re.match(ssh_pattern, url):
+            return True
+
+        return False
+
     def get_repo(self, url_repo: str, token: str = None, username: str = None):
         """Clone or update a temporary repository from the URL"""
+        if not self._is_valid_url(url_repo):
+            self.logger.error("Invalid repository URL: '%s'", url_repo)
+            return [None, None]
+
         try:
             url = self._build_authentication_url(url_repo, token, username)
             repo_name = self._extract_repo_name(url_repo)

@@ -84,14 +84,15 @@ class RepoAnalyzer:
     def analyze_and_export(self, cloned_repo_path: str, repo_name: str) -> str:
         """
         Analyzes the structure of the repository and exports it to a JSON file.
-
-        Args:
-            cloned_repo_path (str): Local path of the cloned repository.
-            repo_name (str): Name of the repository (used for the JSON filename).
-
-        Returns:
-            str: Path of the generated JSON file.
         """
+        if not cloned_repo_path:
+            self.logger.error("Invalid repository path: None received")
+            raise ValueError("cloned_repo_path cannot be None")
+
+        if not repo_name:
+            self.logger.error("Invalid repository name: None received")
+            raise ValueError("repo_name cannot be None")
+
         self.logger.info("Starting analysis of the repository")
         structure = self._build_structure(cloned_repo_path)
 
